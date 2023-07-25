@@ -76,7 +76,7 @@ def main():
   registry_info = CONFIG["package"].get("publish", [])
   registry_info = registry_info[0] if len(registry_info) > 0 else None
   print (f"Publishing to {registry_info}")
-  os.system(f"cp Cargo.toml obfuscated/Cargo.toml")
+  os.system(f"cp Cargo.toml obfuscated/Cargo.toml && cp build.rs obfuscated/")
   merged_source = merge_file(base_file)
   merged_source = '\n'.join(merged_source)
 
