@@ -1,6 +1,3 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-# NEED PACKAGE: tomllib
 import os, toml
 
 PWD = os.path.dirname(os.path.realpath(__file__))
@@ -51,6 +48,8 @@ def obfuscate_code(codes: list[str]):
     else:
       if code.strip().startswith("#![") or code.strip().startswith("#[") or code.strip().count('//') > 0:
         replaced_codes += '\n'+code
+      elif code.strip() == "}":
+        replaced_codes += code.strip() + ';\n'
       else:
         replaced_codes += code.strip()
 
@@ -82,7 +81,7 @@ def main():
     f.write(merged_source)
 
   # NOTE : FORMAT (pretty view)
-  os.system(f"cargo fmt -- {output_path}")
+  os.system(f"cargo +nightly fmt -- {output_path}")
 
   pretty_code: list[str] = open(output_path).readlines()
   converted = obfuscate_code(pretty_code)
@@ -98,5 +97,3 @@ def main():
 
 if __name__ == "__main__":
   main()
-
-
