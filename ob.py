@@ -67,10 +67,13 @@ def main():
 
   base_file = os.path.join(PWD, "src/lib.rs") if is_lib else os.path.join(PWD, "src/main.rs")
 
-  output_path = os.path.join("obfuscated", "lib.rs") if is_lib else os.path.join("obfuscated", "main.rs")
+  output_path = os.path.join("obfuscated", "src", "lib.rs") if is_lib else os.path.join("obfuscated", "src", "main.rs")
   if not os.path.exists(os.path.dirname(output_path)):
     os.makedirs(os.path.dirname(output_path))
 
+  registry_info = CONFIG["package"].get("registry", [])
+  registry_info = registry_info[0] if len(registry_info) > 0 else None
+  os.system(f"cp Cargo.toml obfuscated/Cargo.toml")
   merged_source = merge_file(base_file)
   merged_source = '\n'.join(merged_source)
 
@@ -86,6 +89,14 @@ def main():
   with open(output_path, "wt+") as f:
     f.write(converted)
 
+  if registry_info is not None:
+    os.system(f"cargo publish --manifest-path obfuscated/Cargo.toml --registry {registry_info}")
+  else:
+    os.system(f"cargo publish --manifest-path obfuscated/Cargo.toml")
+
+
 if __name__ == "__main__":
   main()
+
+
 
