@@ -91,9 +91,9 @@ def main():
     f.write(converted)
 
   if registry_info is not None:
-    os.system(f"cargo publish --manifest-path obfuscated/Cargo.toml --registry {registry_info}")
+    os.system(f"cargo publish --manifest-path obfuscated/Cargo.toml --registry {registry_info} --allow-dirty")
   else:
-    os.system(f"cargo publish --manifest-path obfuscated/Cargo.toml")
+    os.system(f"cargo publish --manifest-path obfuscated/Cargo.toml --allow-dirty")
 
 
 if __name__ == "__main__":
