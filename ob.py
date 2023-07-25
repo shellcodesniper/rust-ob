@@ -71,7 +71,7 @@ def main():
   if not os.path.exists(os.path.dirname(output_path)):
     os.makedirs(os.path.dirname(output_path))
 
-  registry_info = CONFIG["package"].get("registry", [])
+  registry_info = CONFIG["package"].get("publish", [])
   registry_info = registry_info[0] if len(registry_info) > 0 else None
   os.system(f"cp Cargo.toml obfuscated/Cargo.toml")
   merged_source = merge_file(base_file)
@@ -97,6 +97,5 @@ def main():
 
 if __name__ == "__main__":
   main()
-
 
 
