@@ -67,7 +67,7 @@ def main():
 
   base_file = os.path.join(PWD, "src/lib.rs") if is_lib else os.path.join(PWD, "src/main.rs")
 
-  output_path = os.path.join("src", "obfuscated", "lib.rs") if is_lib else os.path.join("src", "obfuscated", "main.rs")
+  output_path = os.path.join("obfuscated", "lib.rs") if is_lib else os.path.join("obfuscated", "main.rs")
   if not os.path.exists(os.path.dirname(output_path)):
     os.makedirs(os.path.dirname(output_path))
 
