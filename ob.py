@@ -49,8 +49,8 @@ def obfuscate_code(codes: list[str]):
     if code.strip().endswith(";"):
       replaced_codes += code.strip()
     else:
-      if code.strip().startswith("#![") or code.strip().startswith("#["):
-        replaced_codes += code
+      if code.strip().startswith("#![") or code.strip().startswith("#[") or code.strip().count('//') > 0:
+        replaced_codes += '\n'+code
       else:
         replaced_codes += code.strip()
 
